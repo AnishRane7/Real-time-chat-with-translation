@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-time Chat with Translation</title>
+  <link rel="stylesheet" href="public/style.css">
+  <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="messages">
+      <!-- Messages will be dynamically loaded here -->
+    </div>
+    <form id="message-form" hx-post="/send-message" hx-swap="beforeend:#messages" hx-include="#message-input" hx-trigger="submit">
+      <input type="text" id="message-input" name="message" placeholder="Type a message..." autocomplete="off" required>
+      <button class="btn" type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('message-form').addEventListener('htmx:afterRequest', function() {
+      document.getElementById('message-input').value = '';  // Clear input field after sending
+    });
+  </script>
+</body>
+</html>
